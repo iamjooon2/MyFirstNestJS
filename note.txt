@@ -1,0 +1,5 @@
+UUID 모듈 : unique 한 값을 주기 위한 것
+
+
+NestJs에서는 @Body body를 이용해서 가지고온다
+모든 request에서 보내온 값을 가지고 올 수 있음
