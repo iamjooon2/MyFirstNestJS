@@ -16,6 +16,6 @@ export class BoardsController {
         @Body('title') title: string,
         @Body('description') description: string,
     ) : Board{
-        return this.boardsService.createBoard(title, board);
+        return this.boardsService.createBoard(title, description);
     }
 }
