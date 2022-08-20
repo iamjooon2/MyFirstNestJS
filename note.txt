@@ -3,3 +3,8 @@ UUID 모듈 : unique 한 값을 주기 위한 것
 
 NestJs에서는 @Body body를 이용해서 가지고온다
 모든 request에서 보내온 값을 가지고 올 수 있음
+
+DTO - data transfer object
+계층간 데이터 교환을 위한 객체
+DB에서 데이터를 얻어 Service나 Controller로 보낼때 사용
+Interface와 Class를 이용하여 정의할 수 있으나, NestJs에서는 클래스를 이용하는걸 추천함
