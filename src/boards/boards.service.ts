@@ -11,16 +11,19 @@ export class BoardsService {
     }
 
     createBoard(createBoardDto: createBoardDto) {
-        const {title, description} = createBoardDto;
-        
+        const { title, description } = createBoardDto;
+
         const board: Board = {
             id: uuid(),
             title,
             description,
-            status: BoardStatus.PUBLIC
+            status: BoardStatus.PUBLIC,
         };
         this.boards.push(board);
         return board;
     }
-    
+
+    getBoardById(id: string): Board {
+        return this.boards.find((board) => board.id === id);
+    }
 }
