@@ -1,10 +1,23 @@
-import { Body, Param, Controller, Get, Post, Patch } from '@nestjs/common';
+import {
+    Body,
+    Param,
+    Controller,
+    Get,
+    Post,
+    Patch,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './board.model';
 import { createBoardDto } from './dto/create-board.dto';
 @Controller('boards')
 export class BoardsController {
-    constructor(private boardsService: BoardsService) {}
+    private boardsService: BoardsService;
+
+    constructor(boardsService: BoardsService) {
+        this.boardsService = boardsService;
+    }
 
     // Get 메서드
     @Get('/')
@@ -13,6 +26,7 @@ export class BoardsController {
     }
 
     @Post('/')
+    @UsePipes(ValidationPipe)
     postBoard(@Body() createBoardDto: createBoardDto): Board {
         return this.boardsService.createBoard(createBoardDto);
     }
