@@ -9,13 +9,18 @@ import {
     ValidationPipe,
     Delete,
     ParseIntPipe,
+    UseGuards,
 } from "@nestjs/common";
 import { BoardsService } from "./boards.service";
 import { BoardStatus } from "./board-status.enum";
 import { createBoardDto } from "./dto/create-board.dto";
 import { BoardStatusValidationPipe } from "./pipes/board-status-validation.pipe";
 import { Board } from "./board.entity";
+import { AuthGuard } from "@nestjs/passport";
+
 @Controller("boards")
+// 인증 미들웨어 역할
+@UseGuards(AuthGuard())
 export class BoardsController {
     private boardsService: BoardsService;
 
