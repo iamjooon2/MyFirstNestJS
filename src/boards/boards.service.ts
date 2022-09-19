@@ -45,7 +45,7 @@ export class BoardsService {
         console.log("result", result);
     }
 
-    async updateBoardStatus({ id, status }: { id: number; status: BoardStatus; }): Promise<Board> {
+    async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
         const board = await this.getBoardById(id);
         board.status = status;
         await board.save();
