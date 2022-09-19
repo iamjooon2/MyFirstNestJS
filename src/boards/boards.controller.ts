@@ -10,6 +10,7 @@ import {
     Delete,
     ParseIntPipe,
     UseGuards,
+    Logger,
 } from "@nestjs/common";
 import { BoardsService } from "./boards.service";
 import { BoardStatus } from "./board-status.enum";
@@ -25,19 +26,13 @@ import { identity } from "rxjs";
 // 인증 미들웨어 역할
 @UseGuards(AuthGuard())
 export class BoardsController {
-    private boardsService: BoardsService;
+    private logger = new Logger(`Boards`);
 
-    constructor(boardsService: BoardsService) {
-        this.boardsService = boardsService;
-    }
-
-    @Get()
-    getAllTask(): Promise<Board[]> {
-        return this.boardsService.getAllBoards();
-    }
+    constructor(private boardsService: BoardsService) {}
 
     @Get()
     getAllBoards(@GetUser() user: User): Promise<Board[]> {
+        this.logger.verbose(`User ${user.username} trying to get all boards`);
         return this.boardsService.getAllBoards(user);
     }
 
@@ -52,6 +47,11 @@ export class BoardsController {
         @Body() createBoardDto: createBoardDto,
         @GetUser() user: User,
     ): Promise<Board> {
+        this.logger.verbose(
+            `User ${
+                user.username
+            } creating new board. Payload: ${JSON.stringify(createBoardDto)}`,
+        );
         return this.boardsService.createBoard(createBoardDto, user);
     }
 
@@ -68,6 +68,6 @@ export class BoardsController {
         @Param("id", ParseIntPipe) id: number,
         @Body("status", BoardStatusValidationPipe) status: BoardStatus,
     ): Promise<Board> {
-        return this.boardsService.updateBoardStatus({ id, status });
+        return this.boardsService.updateBoardStatus(id, status);
     }
 }

@@ -5,13 +5,15 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
+import * as config from "config";
 
+const jwtConfig = config.get("jwt");
 @Module({
     imports: [
         PassportModule.register({ defaultStrategy: "jwt" }),
         JwtModule.register({
-            secret: "Secret1234",
-            signOptions: { expiresIn: 60 * 60 },
+            secret: process.env.JWT_SECRET || jwtConfig.secret,
+            signOptions: jwtConfig.expiresIn,
         }),
         TypeOrmModule.forFeature([BoardRepository]),
     ],
