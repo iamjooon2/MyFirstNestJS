@@ -20,7 +20,6 @@ import { Board } from "./board.entity";
 import { AuthGuard } from "@nestjs/passport";
 import { GetUser } from "src/auth/get-user.decorator";
 import { User } from "src/auth/user.entity";
-import { identity } from "rxjs";
 
 @Controller("boards")
 // 인증 미들웨어 역할
