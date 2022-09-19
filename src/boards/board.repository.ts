@@ -10,6 +10,7 @@ export class BoardRepository extends Repository<Board> {
             title,
             description,
             status: BoardStatus.PUBLIC,
+            user,
         });
 
         await this.save(board);
